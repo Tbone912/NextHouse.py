@@ -1,0 +1,71 @@
+<html>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+
+<head>
+<style>
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+th, td {
+  text-align: left;
+  padding: 8px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;}
+</style>
+</head>
+
+
+<body>
+
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+
+
+<table id="mytable" class="sortable">
+  <tr>
+   <th class="tg-baqh"><strong>Zipcode</strong><br></th>
+   <th class="tg-0lax"><strong>Bachelor's Degree Rate</strong></th>
+   <th class="tg-0lax"><strong>Population</strong></th>
+   <th class="tg-0lax"><strong>Median House Value($)</strong></th>
+   <th class="tg-0lax"><strong>Population Density</strong></th>
+   <th class="tg-0lax"><strong>Median Age</strong></th>
+   <th class="tg-0lax"><strong>Cost of Living</strong></th>
+  </tr>
+  <tr>
+   {% for item in data %}
+    <td class="tg-0lax">{{item[0]}}</td>
+    <td class="tg-0lax">{{item[1]}}</td>
+    <td class="tg-0lax">{{item[2]}}</td>
+    <td class="tg-0lax">{{item[3]}}</td>
+    <td class="tg-0lax">{{item[4]}}</td>
+    <td class="tg-0lax">{{item[5]}}</td>
+    <td class="tg-0lax">{{item[6]}}</td>
+  </tr>
+ {% endfor %}
+</table>
+
+<script>
+const getCellValue = (tr, idx) => tr.children[idx].innerText || tr.children[idx].textContent;
+const comparer = (idx, asc) => (a, b) => ((v1, v2) =>
+    v1 !== '' && v2 !== '' && !isNaN(v1) && !isNaN(v2) ? v1 - v2 : v1.toString().localeCompare(v2)
+    )(getCellValue(asc ? a : b, idx), getCellValue(asc ? b : a, idx));
+
+// do the work...
+document.querySelectorAll('th').forEach(th => th.addEventListener('click', (() => {
+    const table = th.closest('table');
+    Array.from(table.querySelectorAll('tr:nth-child(n+2)'))
+        .sort(comparer(Array.from(th.parentNode.children).indexOf(th), this.asc = !this.asc))
+        .forEach(tr => table.appendChild(tr) );
+})));
+
+</script>
+<script>
+const
+
+</script>
+
+
+ </body>
+ </html>
